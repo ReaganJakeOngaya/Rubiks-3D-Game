@@ -360,6 +360,20 @@
       }, 3000);
     }
 
+    function scramble() {
+      // Reset game state first
+      resetGame();
+      
+      // Clear any messages
+      document.getElementById('messageBox').style.display = 'none';
+      
+      const moves = ['U', 'D', 'L', 'R', 'F', 'B'];
+      const moveCount = 20;
+      let movesMade = 0;
+      isRotating = true; // Prevent other interactions during scramble
+
+    }
+
 
 
    </script>
