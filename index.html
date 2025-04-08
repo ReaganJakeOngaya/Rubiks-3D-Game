@@ -372,6 +372,104 @@
       let movesMade = 0;
       isRotating = true; // Prevent other interactions during scramble
 
+      // Function to make a single move
+      function makeMove() {
+        if (movesMade < moveCount) {
+          const move = moves[Math.floor(Math.random() * moves.length)];
+          
+          // Use direct rotation logic without the isPaused check
+          const layer = getFaceLayer(move);
+          const axis = faceAxis[move];
+          const direction = faceDirection[move];
+          const angle = Math.PI / 2 * direction;
+
+          const group = new THREE.Group();
+          scene.add(group);
+          
+          // Create a quaternion for the rotation
+          const quaternion = new THREE.Quaternion();
+          const rotationAxis = new THREE.Vector3();
+          
+          if (axis === 'x') rotationAxis.set(1, 0, 0);
+          else if (axis === 'y') rotationAxis.set(0, 1, 0);
+          else if (axis === 'z') rotationAxis.set(0, 0, 1);
+          
+          quaternion.setFromAxisAngle(rotationAxis, angle);
+
+          // Transfer cubelets to rotation group
+          layer.forEach(cubelet => {
+            const worldPos = new THREE.Vector3();
+            cubelet.getWorldPosition(worldPos);
+            
+            const worldQuaternion = new THREE.Quaternion();
+            cubelet.getWorldQuaternion(worldQuaternion);
+            
+            cubeGroup.remove(cubelet);
+            group.add(cubelet);
+            
+            scene.attach(cubelet);
+            cubelet.position.copy(worldPos);
+            cubelet.quaternion.copy(worldQuaternion);
+            group.attach(cubelet);
+          });
+
+          const duration = 100; // Faster for scrambling
+          const start = Date.now();
+
+          function animateScrambleRotation() {
+            const elapsed = Date.now() - start;
+            const progress = Math.min(elapsed / duration, 1);
+            
+            const currentQuaternion = new THREE.Quaternion();
+            currentQuaternion.slerp(quaternion, progress);
+            group.quaternion.copy(currentQuaternion);
+
+            if (progress < 1) {
+              requestAnimationFrame(animateScrambleRotation);
+            } else {
+              // Rotation complete, reattach cubelets to main cube
+              while (group.children.length) {
+                const cubelet = group.children[0];
+                
+                const worldPos = new THREE.Vector3();
+                cubelet.getWorldPosition(worldPos);
+                
+                const worldQuaternion = new THREE.Quaternion();
+                cubelet.getWorldQuaternion(worldQuaternion);
+                
+                group.remove(cubelet);
+                scene.attach(cubelet);
+                
+                cubelet.position.copy(worldPos);
+                cubelet.quaternion.copy(worldQuaternion);
+                
+                cubelet.position.x = Math.round(cubelet.position.x);
+                cubelet.position.y = Math.round(cubelet.position.y);
+                cubelet.position.z = Math.round(cubelet.position.z);
+                
+                cubeGroup.attach(cubelet);
+              }
+              
+              scene.remove(group);
+              movesMade++;
+              
+              // Wait before making the next move
+              setTimeout(makeMove, 50);
+            }
+          }
+
+          animateScrambleRotation();
+        } else {
+          // Scrambling complete, show play button
+          document.getElementById('btnPlay').classList.remove('hidden');
+          isRotating = false; // Re-enable interactions
+          showMessage("Cube scrambled! Press Play when ready.");
+        }
+      }
+
+      // Start making moves
+      makeMove();
+
     }
 
 

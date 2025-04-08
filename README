@@ -1,0 +1,12 @@
+To create a game like this 3D Rubik's Cube and address potential bugs, follow these steps:
+
+---
+
+### **1. Understand the Game Structure**
+This game uses:
+- **Three.js** for 3D rendering.
+- **HTML/CSS** for UI elements like buttons and instructions.
+- **JavaScript** for game logic, including cube rotations, scrambling, and solving.
+
+---
+
