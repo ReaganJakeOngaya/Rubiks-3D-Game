@@ -117,7 +117,7 @@
     const faceColors = [0xffffff, 0xffff00, 0xff0000, 0xff8800, 0x0000ff, 0x00ff00];
     const colorNames = ['white', 'yellow', 'red', 'orange', 'blue', 'green'];
 
-    function createMaterialArray() {
+    function createMaterialsArray() {
         return [
           new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.7 }), // Right - white
           new THREE.MeshStandardMaterial({ color: 0xffff00, roughness: 0.7 }), // Left - yellow
@@ -131,7 +131,7 @@
     const gray = new THREE.MeshStandardMaterial({ color: 0x888888, roughness: 0.7 }); // copilot
 
     function createCubelet( x, y, z ) {
-        const materials = Array(6).fill(gray).map(m = m.clone());
+        const materials = Array(6).fill(gray).map(m => m.clone());
 
         // Apply colors only to the outer faces
         if (x === 1) materials[0] = createMaterialsArray()[0];
@@ -141,7 +141,7 @@
         if (z === 1) materials[4] = createMaterialsArray()[4];
         if (z === -1) materials[5] = createMaterialsArray()[5];
 
-        const cubelet = new THREE.Mes(new THREE.BoxGeometry(1, 1, 1), materials);// copilot
+        const cubelet = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), materials);// copilot
         cubelet.position.set(x, y, z); // Set position of the cubelet 
         cubelet.userData.originalPosition = new THREE.Vector3(x, y, z);
         cubelet.userData.originalMaterials = materials.map(m => m.clone());
