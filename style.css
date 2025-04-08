@@ -188,3 +188,74 @@ h3 {
   color: #a0d2eb;
 }
 
+/* Button group layout */
+.group:first-child {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.group:first-child h3 {
+  grid-column: span 2;
+}
+
+/* Color guide */
+.color-guide {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin: 10px 0;
+}
+
+.color-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.color-swatch {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.white { background-color: #ffffff; }
+.yellow { background-color: #ffff00; }
+.red { background-color: #ff0000; }
+.orange { background-color: #ff8800; }
+.blue { background-color: #0000ff; }
+.green { background-color: #00ff00; }
+
+/* Lists */
+ul {
+  padding-left: 20px;
+  margin-bottom: 10px;
+}
+
+li {
+  margin-bottom: 5px;
+  line-height: 1.4;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  #ui, #instructions {
+    max-width: 90%;
+    left: 5%;
+    right: 5%;
+  }
+
+  #instructions {
+    top: auto;
+    bottom: 20px;
+  }
+
+  .color-guide {
+    grid-template-columns: 1fr;
+  }
+
+  .instruction-content {
+    max-height: 40vh;
+  }
+}
