@@ -347,7 +347,20 @@
       
       // If we've checked all faces and they're all uniform in color
       return true;
+
     }
+
+    function showMessage(message) {
+      const messageBox = document.getElementById('messageBox');
+      messageBox.textContent = message;
+      messageBox.style.display = 'block';
+      
+      setTimeout(() => {
+        messageBox.style.display = 'none';
+      }, 3000);
+    }
+
+
 
    </script>
     
