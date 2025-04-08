@@ -1,38 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>3D Rubiks Game.</title>
+  <meta charset="UTF-8" />
+  <title>Rubik's Cube 3D</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <div id="ui">
-        <h1>3D Rubiks Game</h1>
-        <div class="controls">
-            <div class="group">
-              <h3>Rotate Faces</h3>
-              <button id="btnU" class="face-btn">Top (U)</button>
-              <button id="btnD" class="face-btn">Bottom (D)</button>
-              <button id="btnL" class="face-btn">Left (L)</button>
-              <button id="btnR" class="face-btn">Right (R)</button>
-              <button id="btnF" class="face-btn">Front (F)</button>
-              <button id="btnB" class="face-btn">Back (B)</button>
-            </div>
-            <div class="group">
-              <h3>Controls</h3>
-              <button id="btnScramble">🔀 Scramble</button>
-              <button id="btnSolve">✅ Solve</button>
-              <button id="btnPlay" class="hidden">▶️ Play</button>
-              <button id="btnPause" class="hidden">⏸️ Pause</button>
-            </div>
-        </div>
-        <div id="timerBox">
-            ⏱ Time: <span id="timer">0.00s</span>
-        </div>
-        <div id="messageBox"></div>
+  <div id="ui">
+    <h1>🧊 Rubik's Cube 3D</h1>
+    <div class="controls">
+      <div class="group">
+        <h3>Rotate Faces</h3>
+        <button id="btnU" class="face-btn">Top (U)</button>
+        <button id="btnD" class="face-btn">Bottom (D)</button>
+        <button id="btnL" class="face-btn">Left (L)</button>
+        <button id="btnR" class="face-btn">Right (R)</button>
+        <button id="btnF" class="face-btn">Front (F)</button>
+        <button id="btnB" class="face-btn">Back (B)</button>
+      </div>
+      <div class="group">
+        <h3>Controls</h3>
+        <button id="btnScramble">🔀 Scramble</button>
+        <button id="btnSolve">✅ Solve</button>
+        <button id="btnPause">⏸️ Pause</button>
+      </div>
     </div>
-    <div id="instructions">
+    <div id="timerBox">⏱ Time: <span id="timer">0.00s</span></div>
+  </div>
+
+  <div id="instructions">
     <h2>How to Play</h2>
     <div class="instruction-content">
       <h3>Basic Controls</h3>
@@ -74,79 +70,68 @@
   </div>
 
   <canvas id="rubiksCanvas"></canvas>
-  
-   <!-- Main script using ES modules -->
 
-   <script type="module">
+  <!-- Main script using ES modules -->
+  <script type="module">
     import * as THREE from 'https://cdn.skypack.dev/three@0.128.0';
     import { OrbitControls } from 'https://cdn.skypack.dev/three@0.128.0/examples/jsm/controls/OrbitControls.js';
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     camera.position.set(6, 6, 6);
-    camera.lookAt(0, 0, 0); // Jake and Copilot
 
-    const renderer = new THREE.WebGLRenderer({ 
-        canvas: document.getElementById('rubiksCanvas'),
-        antialias: true, 
-        alpha: true 
+    const renderer = new THREE.WebGLRenderer({
+       canvas: document.getElementById('rubiksCanvas'),
+       antialias: true,
+       alpha: true,
     });
-    
-    renderer.setSize(window.innerWidth, window.innerHeight); // Set the size of the renderer 
-    renderer.setClearColor(0x000000, 0); // Set transparent background
-//////////////////////
-    renderer.shadowMap.enabled = true; // Enable shadow maps - copilot
-    renderer.shadowMap.type = THREE.PCFSoftShadowMap; // Use soft shadows - copilot
-    renderer.setPixelRatio(window.devicePixelRatio); // Set pixel ratio for high DPI displays - copilot
-/////////////////////
 
-    const controls = new OrbitControls(camera, renderer.domElement); // Initialize orbit controls 
-    controls.enableDamping = true; // Enable damping (inertia) for smoother controls
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setClearColor(0x000000, 0);
 
-/////////////////////
-    const light = new THREE.DirectionalLight(0xffffff, 1); // Create a directional light
-    light.position.set(5, 5, 5).normalize(); // Set light position - copilot
-    scene.add(light); // Add light to the scene
-    light.castShadow = true; // Enable shadows for the light - copilot
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
 
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8); // Create a directional light
-    directionalLight.position.set(5, 5, 5); // Set light position - copilot
-    scene.add(directionalLight); // Add light to the scene
-    directionalLight.castShadow = true; // Enable shadows for the light - copilot
+    const light = new THREE.AmbientLight(0xffffff, 1);
+    scene.add(light);
+
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+    directionalLight.position.set(5, 10, 7);
+    scene.add(directionalLight);
 
     const faceColors = [0xffffff, 0xffff00, 0xff0000, 0xff8800, 0x0000ff, 0x00ff00];
     const colorNames = ['white', 'yellow', 'red', 'orange', 'blue', 'green'];
-
+    
     function createMaterialsArray() {
-        return [
-          new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.7 }), // Right - white
-          new THREE.MeshStandardMaterial({ color: 0xffff00, roughness: 0.7 }), // Left - yellow
-          new THREE.MeshStandardMaterial({ color: 0xff0000, roughness: 0.7 }), // Top - red
-          new THREE.MeshStandardMaterial({ color: 0xff8800, roughness: 0.7 }), // Bottom - orange
-          new THREE.MeshStandardMaterial({ color: 0x0000ff, roughness: 0.7 }), // Front - blue
-          new THREE.MeshStandardMaterial({ color: 0x00ff00, roughness: 0.7 })  // Back - green
-        ];
+      return [
+        new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.7 }), // Right - white
+        new THREE.MeshStandardMaterial({ color: 0xffff00, roughness: 0.7 }), // Left - yellow
+        new THREE.MeshStandardMaterial({ color: 0xff0000, roughness: 0.7 }), // Top - red
+        new THREE.MeshStandardMaterial({ color: 0xff8800, roughness: 0.7 }), // Bottom - orange
+        new THREE.MeshStandardMaterial({ color: 0x0000ff, roughness: 0.7 }), // Front - blue
+        new THREE.MeshStandardMaterial({ color: 0x00ff00, roughness: 0.7 })  // Back - green
+      ];
     }
+    
+    const gray = new THREE.MeshStandardMaterial({ color: 0x222222, roughness: 0.7 });
 
-    const gray = new THREE.MeshStandardMaterial({ color: 0x888888, roughness: 0.7 }); // copilot
+    function createCubelet(x, y, z) {
+      const materials = Array(6).fill(gray).map(m => m.clone());
+      
+      // Apply colors only to the outer faces
+      if (x === 1) materials[0] = createMaterialsArray()[0];
+      if (x === -1) materials[1] = createMaterialsArray()[1];
+      if (y === 1) materials[2] = createMaterialsArray()[2];
+      if (y === -1) materials[3] = createMaterialsArray()[3];
+      if (z === 1) materials[4] = createMaterialsArray()[4];
+      if (z === -1) materials[5] = createMaterialsArray()[5];
 
-    function createCubelet( x, y, z ) {
-        const materials = Array(6).fill(gray).map(m => m.clone());
-
-        // Apply colors only to the outer faces
-        if (x === 1) materials[0] = createMaterialsArray()[0];
-        if (x === -1) materials[1] = createMaterialsArray()[1];
-        if (y === 1) materials[2] = createMaterialsArray()[2];
-        if (y === -1) materials[3] = createMaterialsArray()[3];
-        if (z === 1) materials[4] = createMaterialsArray()[4];
-        if (z === -1) materials[5] = createMaterialsArray()[5];
-
-        const cubelet = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), materials);// copilot
-        cubelet.position.set(x, y, z); // Set position of the cubelet 
-        cubelet.userData.originalPosition = new THREE.Vector3(x, y, z);
-        cubelet.userData.originalMaterials = materials.map(m => m.clone());
-
-        return cubelet; // Return the created cubelet
+      const cubelet = new THREE.Mesh(new THREE.BoxGeometry(0.95, 0.95, 0.95), materials);
+      cubelet.position.set(x, y, z);
+      cubelet.userData.originalPosition = new THREE.Vector3(x, y, z);
+      cubelet.userData.originalMaterials = materials.map(m => m.clone());
+      
+      return cubelet;
     }
 
     const cubeGroup = new THREE.Group();
@@ -169,9 +154,9 @@
     const faceDirection = { U: 1, D: -1, L: -1, R: 1, F: 1, B: -1 };
 
     function getFaceLayer(face) {
-        const tolerance = 0.2;
-        // Use cubeGroup.children instead of cubelets to ensure we're always using the current state
-        switch (face) {
+      const tolerance = 0.2;
+      // Use cubeGroup.children instead of cubelets to ensure we're always using the current state
+      switch (face) {
         case 'U': return cubeGroup.children.filter(c => Math.abs(c.position.y - 1) < tolerance);
         case 'D': return cubeGroup.children.filter(c => Math.abs(c.position.y + 1) < tolerance);
         case 'L': return cubeGroup.children.filter(c => Math.abs(c.position.x + 1) < tolerance);
@@ -179,18 +164,21 @@
         case 'F': return cubeGroup.children.filter(c => Math.abs(c.position.z - 1) < tolerance);
         case 'B': return cubeGroup.children.filter(c => Math.abs(c.position.z + 1) < tolerance);
         default: return [];
-        }
+      }
     }
 
     let isRotating = false;
     let isPaused = false;
     let gameStarted = false;
 
+    // Completely fixed rotateFace function - no timer stopping on moves
     function rotateFace(face) {
       if (isRotating || isPaused) return;
+      
+      // Start the timer if it's not already running and a move is made
       if (!gameStarted) {
-        showMessage("Press Play to start the game!");
-        return;
+        setGameState(true);
+        startTimer();
       }
       
       isRotating = true;
@@ -276,13 +264,6 @@
           
           scene.remove(group);
           isRotating = false;
-          
-          // Check if cube is solved
-          if (checkWinCondition()) {
-            showMessage("🎉 Congratulations! You've solved the cube!");
-            stopTimer();
-            setGameState(false);
-          }
         }
       }
 
@@ -347,25 +328,12 @@
       
       // If we've checked all faces and they're all uniform in color
       return true;
-
     }
 
-    function showMessage(message) {
-      const messageBox = document.getElementById('messageBox');
-      messageBox.textContent = message;
-      messageBox.style.display = 'block';
-      
-      setTimeout(() => {
-        messageBox.style.display = 'none';
-      }, 3000);
-    }
-
+    // Modified scramble function - no automatic timer start
     function scramble() {
       // Reset game state first
       resetGame();
-      
-      // Clear any messages
-      document.getElementById('messageBox').style.display = 'none';
       
       const moves = ['U', 'D', 'L', 'R', 'F', 'B'];
       const moveCount = 20;
@@ -460,21 +428,198 @@
 
           animateScrambleRotation();
         } else {
-          // Scrambling complete, show play button
-          document.getElementById('btnPlay').classList.remove('hidden');
+          // Scrambling complete - do NOT automatically start timer
           isRotating = false; // Re-enable interactions
-          showMessage("Cube scrambled! Press Play when ready.");
         }
       }
 
       // Start making moves
       makeMove();
-
     }
 
+    function solve() {
+      // Stop timer if running
+      stopTimer();
+      resetGame();
+      isRotating = true; // Prevent interactions during solve animation
 
+      // Remove all current cubelets from the scene
+      while (cubeGroup.children.length > 0) {
+        const cubelet = cubeGroup.children[0];
+        cubeGroup.remove(cubelet);
+        scene.remove(cubelet);
+      }
 
-   </script>
+      // Create new cubelets in solved positions
+      cubeGroup.clear();
+      cubelets.length = 0;
+
+      for (let x = -1; x <= 1; x++) {
+        for (let y = -1; y <= 1; y++) {
+          for (let z = -1; z <= 1; z++) {
+            if (x === 0 && y === 0 && z === 0) continue;
+            const cubelet = createCubelet(x, y, z);
+            cubeGroup.add(cubelet);
+            cubelets.push(cubelet);
+          }
+        }
+      }
+
+      setTimeout(() => {
+        isRotating = false; // Re-enable interactions
+      }, 500);
+    }
+
+    let startTime = null;
+    let timerInterval = null;
+    let elapsedTime = 0;
+
+    function startTimer() {
+      if (timerInterval) return; // Don't start if already running
+      
+      startTime = Date.now() - elapsedTime;
+      timerInterval = setInterval(() => {
+        elapsedTime = Date.now() - startTime;
+        document.getElementById('timer').textContent = `${(elapsedTime / 1000).toFixed(2)}s`;
+        
+        // Check for win condition during timer update
+        if (checkWinCondition() && gameStarted) {
+          pauseTimer(); // Pause rather than stop to show final time
+        }
+      }, 100);
+    }
+
+    function pauseTimer() {
+      clearInterval(timerInterval);
+      timerInterval = null;
+      // Don't reset elapsed time, we'll continue from here
+    }
+
+    function stopTimer() {
+      clearInterval(timerInterval);
+      timerInterval = null;
+      elapsedTime = 0;
+      document.getElementById('timer').textContent = "0.00s";
+    }
+
+    // Modified resetGame function
+    function resetGame() {
+      // Reset game state
+      setGameState(false);
+      isPaused = false;
+      stopTimer();
+      
+      // Enable cube rotation controls
+      controls.enabled = true;
+      
+      // Re-enable rotation buttons
+      const faceButtons = document.querySelectorAll('.face-btn');
+      faceButtons.forEach(btn => btn.disabled = false);
+    }
+
+    // Modified setGameState function
+    function setGameState(started) {
+      gameStarted = started;
+      
+      // Toggle pause button visibility based on game state
+      const pauseBtn = document.getElementById('btnPause');
+      
+      if (started) {
+        pauseBtn.classList.remove('hidden');
+        pauseBtn.textContent = "⏸️ Pause";
+        isPaused = false;
+      } else {
+        pauseBtn.classList.add('hidden');
+      }
+    }
+
+    function togglePause() {
+      if (!gameStarted) return;
+      
+      isPaused = !isPaused;
+      const pauseBtn = document.getElementById('btnPause');
+      
+      if (isPaused) {
+        pauseBtn.textContent = "▶️ Resume";
+        pauseTimer();
+        
+        // Disable controls while paused
+        controls.enabled = false;
+        
+        // Disable rotation buttons
+        const faceButtons = document.querySelectorAll('.face-btn');
+        faceButtons.forEach(btn => btn.disabled = true);
+        
+      } else {
+        pauseBtn.textContent = "⏸️ Pause";
+        startTimer();
+        
+        // Re-enable controls
+        controls.enabled = true;
+        
+        // Re-enable rotation buttons
+        const faceButtons = document.querySelectorAll('.face-btn');
+        faceButtons.forEach(btn => btn.disabled = false);
+        
+      }
+    }
+
+    // Instructions toggle functionality
+    const toggleButton = document.getElementById('toggleInstructions');
+    const instructions = document.getElementById('instructions');
     
+    toggleButton.addEventListener('click', () => {
+      if (instructions.classList.contains('hidden')) {
+        instructions.classList.remove('hidden');
+        toggleButton.textContent = 'Hide Instructions';
+      } else {
+        instructions.classList.add('hidden');
+        toggleButton.textContent = 'Show Instructions';
+      }
+    });
+
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    // Button event listeners
+    document.getElementById('btnU').addEventListener('click', () => rotateFace('U'));
+    document.getElementById('btnD').addEventListener('click', () => rotateFace('D'));
+    document.getElementById('btnL').addEventListener('click', () => rotateFace('L'));
+    document.getElementById('btnR').addEventListener('click', () => rotateFace('R'));
+    document.getElementById('btnF').addEventListener('click', () => rotateFace('F'));
+    document.getElementById('btnB').addEventListener('click', () => rotateFace('B'));
+    document.getElementById('btnScramble').addEventListener('click', scramble);
+    document.getElementById('btnSolve').addEventListener('click', solve);
+    document.getElementById('btnPause').addEventListener('click', togglePause);
+
+    // Add keyboard controls
+    window.addEventListener('keydown', (event) => {
+      if (isPaused || isRotating) return;
+      
+      switch(event.key.toUpperCase()) {
+        case 'U': rotateFace('U'); break;
+        case 'D': rotateFace('D'); break;
+        case 'L': rotateFace('L'); break;
+        case 'R': rotateFace('R'); break;
+        case 'F': rotateFace('F'); break;
+        case 'B': rotateFace('B'); break;
+        case ' ': togglePause(); break; // Space bar to pause/resume
+      }
+    });
+
+    // Initialize the game with a scrambled cube
+    setTimeout(scramble, 1000);
+
+    function animate() {
+      requestAnimationFrame(animate);
+      controls.update();
+      renderer.render(scene, camera);
+    }
+
+    animate();
+  </script>
 </body>
 </html>
