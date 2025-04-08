@@ -289,6 +289,66 @@
       animateRotation();
     }
 
+    function checkWinCondition() {
+      // Check if all cubelets are in their original positions with correct orientation
+      for (const face of ['U', 'D', 'L', 'R', 'F', 'B']) {
+        const layer = getFaceLayer(face);
+        
+        let colorIndex;
+        switch (face) {
+          case 'R': colorIndex = 0; break; // White
+          case 'L': colorIndex = 1; break; // Yellow
+          case 'U': colorIndex = 2; break; // Red
+          case 'D': colorIndex = 3; break; // Orange
+          case 'F': colorIndex = 4; break; // Blue
+          case 'B': colorIndex = 5; break; // Green
+        }
+        
+        // Convert face position to world direction vector
+        const faceNormal = new THREE.Vector3();
+        switch (face) {
+          case 'R': faceNormal.set(1, 0, 0); break;
+          case 'L': faceNormal.set(-1, 0, 0); break;
+          case 'U': faceNormal.set(0, 1, 0); break;
+          case 'D': faceNormal.set(0, -1, 0); break;
+          case 'F': faceNormal.set(0, 0, 1); break;
+          case 'B': faceNormal.set(0, 0, -1); break;
+        }
+        
+        // Check if all cubelets on this face have the same color facing outward
+        const raycaster = new THREE.Raycaster();
+        let centerColor = null;
+        
+        for (const cubelet of layer) {
+          // Get the center position of the cubelet
+          const position = cubelet.position.clone();
+          
+          // Cast ray from slightly inside the cube outward in face normal direction
+          const startPoint = position.clone().sub(faceNormal.clone().multiplyScalar(0.5));
+          raycaster.set(startPoint, faceNormal);
+          
+          const intersects = raycaster.intersectObject(cubelet);
+          if (intersects.length > 0) {
+            const faceIndex = intersects[0].faceIndex;
+            // Integer division by 2 because each face has 2 triangles
+            const materialIndex = Math.floor(faceIndex / 2);
+            
+            const color = cubelet.material[materialIndex].color.getHex();
+            
+            if (centerColor === null) {
+              centerColor = color;
+            } else if (color !== centerColor) {
+              // Face has different colors
+              return false;
+            }
+          }
+        }
+      }
+      
+      // If we've checked all faces and they're all uniform in color
+      return true;
+    }
+
    </script>
     
 </body>
