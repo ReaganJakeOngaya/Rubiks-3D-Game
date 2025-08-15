@@ -11,21 +11,45 @@
     <div class="controls">
       <div class="group">
         <h3>Rotate Faces</h3>
-        <button id="btnU" class="face-btn">Top (U)</button>
-        <button id="btnD" class="face-btn">Bottom (D)</button>
-        <button id="btnL" class="face-btn">Left (L)</button>
-        <button id="btnR" class="face-btn">Right (R)</button>
-        <button id="btnF" class="face-btn">Front (F)</button>
-        <button id="btnB" class="face-btn">Back (B)</button>
+        <div class="face-buttons">
+          <button id="btnU" class="face-btn">Top (U)</button>
+          <button id="btnD" class="face-btn">Bottom (D)</button>
+          <button id="btnL" class="face-btn">Left (L)</button>
+          <button id="btnR" class="face-btn">Right (R)</button>
+          <button id="btnF" class="face-btn">Front (F)</button>
+          <button id="btnB" class="face-btn">Back (B)</button>
+        </div>
       </div>
       <div class="group">
-        <h3>Controls</h3>
+        <h3>Game Controls</h3>
         <button id="btnScramble">🔀 Scramble</button>
         <button id="btnSolve">✅ Solve</button>
-        <button id="btnPause">⏸️ Pause</button>
+        <button id="btnReset">🔄 Reset</button>
+        <button id="btnPause" class="hidden">⏸️ Pause</button>
       </div>
     </div>
+    
+    <div id="stats">
+      <div class="stat-row">
+        <span class="stat-label">Moves:</span>
+        <span id="moveCount" class="stat-value">0</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Best Time:</span>
+        <span id="bestTime" class="stat-value">--:--</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Games Won:</span>
+        <span id="gamesWon" class="stat-value">0</span>
+      </div>
+    </div>
+    
     <div id="timerBox">⏱ Time: <span id="timer">0.00s</span></div>
+  </div>
+
+  <div id="winMessage">
+    <div>🎉 Congratulations! 🎉</div>
+    <div id="winStats" style="font-size: 16px; margin-top: 10px;"></div>
   </div>
 
   <div id="instructions">
@@ -33,37 +57,55 @@
     <div class="instruction-content">
       <h3>Basic Controls</h3>
       <ul>
-        <li><strong>Rotate the cube:</strong> Click and drag anywhere on the screen</li>
-        <li><strong>Zoom in/out:</strong> Use the mouse wheel or pinch gesture</li>
+        <li><strong>Rotate the cube:</strong> Click and drag to rotate the view</li>
+        <li><strong>Zoom in/out:</strong> Use mouse wheel or pinch gesture</li>
+        <li><strong>Face rotations:</strong> Click face buttons or use keyboard</li>
+      </ul>
+
+      <h3>Keyboard Controls</h3>
+      <ul>
+        <li><strong>U, D, L, R, F, B:</strong> Rotate respective faces</li>
+        <li><strong>Spacebar:</strong> Pause/Resume game</li>
+        <li><strong>S:</strong> Scramble cube</li>
+        <li><strong>Enter:</strong> Solve cube</li>
       </ul>
 
       <h3>Face Rotations</h3>
       <ul>
-        <li><strong>U:</strong> Rotates the top (Up) face clockwise</li>
-        <li><strong>D:</strong> Rotates the bottom (Down) face clockwise</li>
-        <li><strong>L:</strong> Rotates the left face clockwise</li>
-        <li><strong>R:</strong> Rotates the right face clockwise</li>
-        <li><strong>F:</strong> Rotates the front face clockwise</li>
-        <li><strong>B:</strong> Rotates the back face clockwise</li>
+        <li><strong>U (Up):</strong> Rotates the top face clockwise</li>
+        <li><strong>D (Down):</strong> Rotates the bottom face clockwise</li>
+        <li><strong>L (Left):</strong> Rotates the left face clockwise</li>
+        <li><strong>R (Right):</strong> Rotates the right face clockwise</li>
+        <li><strong>F (Front):</strong> Rotates the front face clockwise</li>
+        <li><strong>B (Back):</strong> Rotates the back face clockwise</li>
       </ul>
 
       <h3>Color Guide</h3>
       <div class="color-guide">
-        <div class="color-item"><span class="color-swatch white"></span> White (Right)</div>
-        <div class="color-item"><span class="color-swatch yellow"></span> Yellow (Left)</div>
-        <div class="color-item"><span class="color-swatch red"></span> Red (Top)</div>
-        <div class="color-item"><span class="color-swatch orange"></span> Orange (Bottom)</div>
-        <div class="color-item"><span class="color-swatch blue"></span> Blue (Front)</div>
-        <div class="color-item"><span class="color-swatch green"></span> Green (Back)</div>
+        <div class="color-item"><span class="color-swatch white"></span>White (Right)</div>
+        <div class="color-item"><span class="color-swatch yellow"></span>Yellow (Left)</div>
+        <div class="color-item"><span class="color-swatch red"></span>Red (Top)</div>
+        <div class="color-item"><span class="color-swatch orange"></span>Orange (Bottom)</div>
+        <div class="color-item"><span class="color-swatch blue"></span>Blue (Front)</div>
+        <div class="color-item"><span class="color-swatch green"></span>Green (Back)</div>
       </div>
+
+      <h3>Game Features</h3>
+      <ul>
+        <li>Real-time timer and move counter</li>
+        <li>Best time and statistics tracking</li>
+        <li>Pause and resume functionality</li>
+        <li>Automatic win detection</li>
+        <li>Realistic 3D cube with smooth animations</li>
+      </ul>
 
       <h3>Tips</h3>
       <ul>
         <li>The goal is to make each face a solid color</li>
-        <li>Try to solve one face first, then work on the others</li>
-        <li>Use the <strong>Scramble</strong> button to shuffle the cube</li>
-        <li>If you get stuck, use the <strong>Solve</strong> button to reset</li>
-        <li>You can pause the game anytime using the <strong>Pause</strong> button</li>
+        <li>Start by solving one face completely</li>
+        <li>Learn basic algorithms for faster solving</li>
+        <li>Use the scramble button for random puzzles</li>
+        <li>Track your progress with the statistics</li>
       </ul>
     </div>
     <button id="toggleInstructions">Hide Instructions</button>
@@ -73,50 +115,253 @@
 
   <!-- Main script using ES modules -->
   <script type="module">
-    import * as THREE from 'https://cdn.skypack.dev/three@0.128.0';
-    import { OrbitControls } from 'https://cdn.skypack.dev/three@0.128.0/examples/jsm/controls/OrbitControls.js';
+     import * as THREE from 'https://unpkg.com/three@0.128.0/build/three.module.js';
 
+    // OrbitControls implementation (since CDN imports don't work reliably)
+    class OrbitControls {
+      constructor(object, domElement) {
+        this.object = object;
+        this.domElement = domElement;
+        this.enabled = true;
+        this.enableDamping = true;
+        this.dampingFactor = 0.05;
+        this.enableZoom = true;
+        this.zoomSpeed = 1.0;
+        this.enableRotate = true;
+        this.rotateSpeed = 1.0;
+        this.enablePan = false;
+
+        this.spherical = new THREE.Spherical();
+        this.sphericalDelta = new THREE.Spherical();
+        this.scale = 1;
+        this.panOffset = new THREE.Vector3();
+        this.zoomChanged = false;
+
+        this.rotateStart = new THREE.Vector2();
+        this.rotateEnd = new THREE.Vector2();
+        this.rotateDelta = new THREE.Vector2();
+
+        this.domElement.addEventListener('contextmenu', this.onContextMenu.bind(this));
+        this.domElement.addEventListener('mousedown', this.onMouseDown.bind(this));
+        this.domElement.addEventListener('wheel', this.onMouseWheel.bind(this));
+        this.domElement.addEventListener('touchstart', this.onTouchStart.bind(this));
+        this.domElement.addEventListener('touchend', this.onTouchEnd.bind(this));
+        this.domElement.addEventListener('touchmove', this.onTouchMove.bind(this));
+
+        this.target = new THREE.Vector3();
+        this.update();
+      }
+
+      update() {
+        const offset = new THREE.Vector3();
+        const quat = new THREE.Quaternion().setFromUnitVectors(this.object.up, new THREE.Vector3(0, 1, 0));
+        const quatInverse = quat.clone().invert();
+
+        offset.copy(this.object.position).sub(this.target);
+        offset.applyQuaternion(quat);
+        this.spherical.setFromVector3(offset);
+
+        if (this.enableDamping) {
+          this.spherical.theta += this.sphericalDelta.theta * this.dampingFactor;
+          this.spherical.phi += this.sphericalDelta.phi * this.dampingFactor;
+        } else {
+          this.spherical.theta += this.sphericalDelta.theta;
+          this.spherical.phi += this.sphericalDelta.phi;
+        }
+
+        this.spherical.phi = Math.max(0.1, Math.min(Math.PI - 0.1, this.spherical.phi));
+        this.spherical.makeSafe();
+        this.spherical.radius *= this.scale;
+
+        offset.setFromSpherical(this.spherical);
+        offset.applyQuaternion(quatInverse);
+        this.object.position.copy(this.target).add(offset);
+        this.object.lookAt(this.target);
+
+        if (this.enableDamping) {
+          this.sphericalDelta.theta *= (1 - this.dampingFactor);
+          this.sphericalDelta.phi *= (1 - this.dampingFactor);
+        } else {
+          this.sphericalDelta.set(0, 0, 0);
+        }
+
+        this.scale = 1;
+      }
+
+      onMouseDown(event) {
+        if (!this.enabled) return;
+        event.preventDefault();
+        if (event.button === 0) {
+          this.rotateStart.set(event.clientX, event.clientY);
+          this.domElement.addEventListener('mousemove', this.onMouseMove.bind(this));
+          this.domElement.addEventListener('mouseup', this.onMouseUp.bind(this));
+        }
+      }
+
+      onMouseMove(event) {
+        if (!this.enabled) return;
+        event.preventDefault();
+        this.rotateEnd.set(event.clientX, event.clientY);
+        this.rotateDelta.subVectors(this.rotateEnd, this.rotateStart).multiplyScalar(this.rotateSpeed);
+        
+        const element = this.domElement;
+        this.sphericalDelta.theta -= 2 * Math.PI * this.rotateDelta.x / element.clientHeight;
+        this.sphericalDelta.phi -= 2 * Math.PI * this.rotateDelta.y / element.clientHeight;
+        
+        this.rotateStart.copy(this.rotateEnd);
+      }
+
+      onMouseUp() {
+        this.domElement.removeEventListener('mousemove', this.onMouseMove.bind(this));
+        this.domElement.removeEventListener('mouseup', this.onMouseUp.bind(this));
+      }
+
+      onMouseWheel(event) {
+        if (!this.enabled || !this.enableZoom) return;
+        event.preventDefault();
+        if (event.deltaY < 0) {
+          this.scale /= Math.pow(0.95, this.zoomSpeed);
+        } else if (event.deltaY > 0) {
+          this.scale *= Math.pow(0.95, this.zoomSpeed);
+        }
+      }
+
+      onTouchStart(event) {
+        if (!this.enabled) return;
+        if (event.touches.length === 1) {
+          this.rotateStart.set(event.touches[0].pageX, event.touches[0].pageY);
+        }
+      }
+
+      onTouchMove(event) {
+        if (!this.enabled) return;
+        event.preventDefault();
+        if (event.touches.length === 1) {
+          this.rotateEnd.set(event.touches[0].pageX, event.touches[0].pageY);
+          this.rotateDelta.subVectors(this.rotateEnd, this.rotateStart).multiplyScalar(this.rotateSpeed);
+          
+          const element = this.domElement;
+          this.sphericalDelta.theta -= 2 * Math.PI * this.rotateDelta.x / element.clientHeight;
+          this.sphericalDelta.phi -= 2 * Math.PI * this.rotateDelta.y / element.clientHeight;
+          
+          this.rotateStart.copy(this.rotateEnd);
+        }
+      }
+
+      onTouchEnd() {
+        // Touch ended
+      }
+
+      onContextMenu(event) {
+        if (!this.enabled) return;
+        event.preventDefault();
+      }
+    }
+
+    // Scene setup with enhanced lighting
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    camera.position.set(6, 6, 6);
+    scene.background = null; // Transparent background
+    
+    const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.set(8, 8, 8);
 
     const renderer = new THREE.WebGLRenderer({
        canvas: document.getElementById('rubiksCanvas'),
        antialias: true,
        alpha: true,
+       powerPreference: "high-performance"
     });
 
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setClearColor(0x000000, 0);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.outputEncoding = THREE.sRGBEncoding;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.2;
 
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
+    controls.dampingFactor = 0.1;
 
-    const light = new THREE.AmbientLight(0xffffff, 1);
-    scene.add(light);
+    // Enhanced lighting setup
+    const ambientLight = new THREE.AmbientLight(0x404040, 0.6);
+    scene.add(ambientLight);
 
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
-    directionalLight.position.set(5, 10, 7);
-    scene.add(directionalLight);
+    const directionalLight1 = new THREE.DirectionalLight(0xffffff, 1.2);
+    directionalLight1.position.set(10, 10, 5);
+    directionalLight1.castShadow = true;
+    directionalLight1.shadow.mapSize.width = 2048;
+    directionalLight1.shadow.mapSize.height = 2048;
+    directionalLight1.shadow.camera.near = 0.5;
+    directionalLight1.shadow.camera.far = 50;
+    scene.add(directionalLight1);
 
-    const faceColors = [0xffffff, 0xffff00, 0xff0000, 0xff8800, 0x0000ff, 0x00ff00];
-    const colorNames = ['white', 'yellow', 'red', 'orange', 'blue', 'green'];
-    
+    const directionalLight2 = new THREE.DirectionalLight(0x8888ff, 0.8);
+    directionalLight2.position.set(-5, 8, -5);
+    scene.add(directionalLight2);
+
+    const rimLight = new THREE.DirectionalLight(0xff8888, 0.5);
+    rimLight.position.set(-10, -10, 10);
+    scene.add(rimLight);
+
+    // Enhanced materials with better realism
     function createMaterialsArray() {
       return [
-        new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.7 }), // Right - white
-        new THREE.MeshStandardMaterial({ color: 0xffff00, roughness: 0.7 }), // Left - yellow
-        new THREE.MeshStandardMaterial({ color: 0xff0000, roughness: 0.7 }), // Top - red
-        new THREE.MeshStandardMaterial({ color: 0xff8800, roughness: 0.7 }), // Bottom - orange
-        new THREE.MeshStandardMaterial({ color: 0x0000ff, roughness: 0.7 }), // Front - blue
-        new THREE.MeshStandardMaterial({ color: 0x00ff00, roughness: 0.7 })  // Back - green
+        new THREE.MeshPhysicalMaterial({ 
+          color: 0xffffff, 
+          roughness: 0.1, 
+          metalness: 0.1,
+          clearcoat: 0.8,
+          clearcoatRoughness: 0.1
+        }), // Right - white
+        new THREE.MeshPhysicalMaterial({ 
+          color: 0xffff00, 
+          roughness: 0.1, 
+          metalness: 0.1,
+          clearcoat: 0.8,
+          clearcoatRoughness: 0.1
+        }), // Left - yellow
+        new THREE.MeshPhysicalMaterial({ 
+          color: 0xff0000, 
+          roughness: 0.1, 
+          metalness: 0.1,
+          clearcoat: 0.8,
+          clearcoatRoughness: 0.1
+        }), // Top - red
+        new THREE.MeshPhysicalMaterial({ 
+          color: 0xff8800, 
+          roughness: 0.1, 
+          metalness: 0.1,
+          clearcoat: 0.8,
+          clearcoatRoughness: 0.1
+        }), // Bottom - orange
+        new THREE.MeshPhysicalMaterial({ 
+          color: 0x0066ff, 
+          roughness: 0.1, 
+          metalness: 0.1,
+          clearcoat: 0.8,
+          clearcoatRoughness: 0.1
+        }), // Front - blue
+        new THREE.MeshPhysicalMaterial({ 
+          color: 0x00ff00, 
+          roughness: 0.1, 
+          metalness: 0.1,
+          clearcoat: 0.8,
+          clearcoatRoughness: 0.1
+        })  // Back - green
       ];
     }
     
-    const gray = new THREE.MeshStandardMaterial({ color: 0x222222, roughness: 0.7 });
+    const blackMaterial = new THREE.MeshPhysicalMaterial({ 
+      color: 0x111111, 
+      roughness: 0.8, 
+      metalness: 0.3 
+    });
 
+    // Enhanced cubelet creation with rounded edges
     function createCubelet(x, y, z) {
-      const materials = Array(6).fill(gray).map(m => m.clone());
+      const materials = Array(6).fill(blackMaterial).map(m => m.clone());
       
       // Apply colors only to the outer faces
       if (x === 1) materials[0] = createMaterialsArray()[0];
@@ -126,8 +371,19 @@
       if (z === 1) materials[4] = createMaterialsArray()[4];
       if (z === -1) materials[5] = createMaterialsArray()[5];
 
-      const cubelet = new THREE.Mesh(new THREE.BoxGeometry(0.95, 0.95, 0.95), materials);
+      // Create geometry with slightly rounded edges
+      const geometry = new THREE.BoxGeometry(0.98, 0.98, 0.98);
+      
+      // Add edge geometry for more realistic look
+      const edges = new THREE.EdgesGeometry(geometry);
+      const edgeMaterial = new THREE.LineBasicMaterial({ color: 0x000000, linewidth: 2 });
+      const edgeLines = new THREE.LineSegments(edges, edgeMaterial);
+
+      const cubelet = new THREE.Mesh(geometry, materials);
+      cubelet.add(edgeLines);
       cubelet.position.set(x, y, z);
+      cubelet.castShadow = true;
+      cubelet.receiveShadow = true;
       cubelet.userData.originalPosition = new THREE.Vector3(x, y, z);
       cubelet.userData.originalMaterials = materials.map(m => m.clone());
       
@@ -150,12 +406,26 @@
 
     scene.add(cubeGroup);
 
+    // Game state variables
+    let isRotating = false;
+    let isPaused = false;
+    let gameStarted = false;
+    let moveCount = 0;
+    let startTime = null;
+    let timerInterval = null;
+    let elapsedTime = 0;
+    let bestTime = localStorage.getItem('rubiksBestTime') || null;
+    let gamesWon = parseInt(localStorage.getItem('rubiksGamesWon') || '0');
+
+    // Update UI with stored stats
+    document.getElementById('bestTime').textContent = bestTime ? `${(parseFloat(bestTime) / 1000).toFixed(2)}s` : '--:--';
+    document.getElementById('gamesWon').textContent = gamesWon;
+
     const faceAxis = { U: 'y', D: 'y', L: 'x', R: 'x', F: 'z', B: 'z' };
     const faceDirection = { U: 1, D: -1, L: -1, R: 1, F: 1, B: -1 };
 
     function getFaceLayer(face) {
       const tolerance = 0.2;
-      // Use cubeGroup.children instead of cubelets to ensure we're always using the current state
       switch (face) {
         case 'U': return cubeGroup.children.filter(c => Math.abs(c.position.y - 1) < tolerance);
         case 'D': return cubeGroup.children.filter(c => Math.abs(c.position.y + 1) < tolerance);
@@ -167,19 +437,18 @@
       }
     }
 
-    let isRotating = false;
-    let isPaused = false;
-    let gameStarted = false;
-
-    // Completely fixed rotateFace function - no timer stopping on moves
+    // Enhanced rotation with smooth animations
     function rotateFace(face) {
       if (isRotating || isPaused) return;
       
-      // Start the timer if it's not already running and a move is made
       if (!gameStarted) {
         setGameState(true);
         startTimer();
       }
+      
+      // Increment move counter
+      moveCount++;
+      updateMoveCounter();
       
       isRotating = true;
       
@@ -191,7 +460,6 @@
       const group = new THREE.Group();
       scene.add(group);
       
-      // Create a quaternion for the rotation
       const quaternion = new THREE.Quaternion();
       const rotationAxis = new THREE.Vector3();
       
@@ -203,7 +471,6 @@
 
       // Transfer cubelets to rotation group
       layer.forEach(cubelet => {
-        // Store world position and rotation before removing from cubeGroup
         const worldPos = new THREE.Vector3();
         cubelet.getWorldPosition(worldPos);
         
@@ -213,139 +480,124 @@
         cubeGroup.remove(cubelet);
         group.add(cubelet);
         
-        // Restore world position
         scene.attach(cubelet);
         cubelet.position.copy(worldPos);
         cubelet.quaternion.copy(worldQuaternion);
         group.attach(cubelet);
       });
 
-      const duration = 500;
+      const duration = 400;
       const start = Date.now();
 
       function animateRotation() {
         const elapsed = Date.now() - start;
         const progress = Math.min(elapsed / duration, 1);
         
+        // Use easing function for smoother animation
+        const easeProgress = 1 - Math.pow(1 - progress, 3);
+        
         const currentQuaternion = new THREE.Quaternion();
-        currentQuaternion.slerp(quaternion, progress);
+        currentQuaternion.slerp(quaternion, easeProgress);
         group.quaternion.copy(currentQuaternion);
 
         if (progress < 1) {
           requestAnimationFrame(animateRotation);
         } else {
-          // Rotation complete, reattach cubelets to main cube
+          // Rotation complete
           while (group.children.length) {
             const cubelet = group.children[0];
             
-            // Get world position and rotation
             const worldPos = new THREE.Vector3();
             cubelet.getWorldPosition(worldPos);
             
             const worldQuaternion = new THREE.Quaternion();
             cubelet.getWorldQuaternion(worldQuaternion);
             
-            // Remove from group and attach to scene temporarily
             group.remove(cubelet);
             scene.attach(cubelet);
             
-            // Maintain world position and rotation
             cubelet.position.copy(worldPos);
             cubelet.quaternion.copy(worldQuaternion);
             
-            // Snap position to grid
             cubelet.position.x = Math.round(cubelet.position.x);
             cubelet.position.y = Math.round(cubelet.position.y);
             cubelet.position.z = Math.round(cubelet.position.z);
             
-            // Reattach to cube group
             cubeGroup.attach(cubelet);
           }
           
           scene.remove(group);
           isRotating = false;
+          
+          // Check win condition after move
+          if (checkWinCondition() && gameStarted) {
+            handleWin();
+          }
         }
       }
 
       animateRotation();
     }
 
+    // Enhanced win condition check
     function checkWinCondition() {
-      // Check if all cubelets are in their original positions with correct orientation
-      for (const face of ['U', 'D', 'L', 'R', 'F', 'B']) {
+      const faces = ['U', 'D', 'L', 'R', 'F', 'B'];
+      const faceDirections = [
+        new THREE.Vector3(0, 1, 0),   // U
+        new THREE.Vector3(0, -1, 0),  // D
+        new THREE.Vector3(-1, 0, 0),  // L
+        new THREE.Vector3(1, 0, 0),   // R
+        new THREE.Vector3(0, 0, 1),   // F
+        new THREE.Vector3(0, 0, -1)   // B
+      ];
+
+      for (let i = 0; i < faces.length; i++) {
+        const face = faces[i];
+        const direction = faceDirections[i];
         const layer = getFaceLayer(face);
         
-        let colorIndex;
-        switch (face) {
-          case 'R': colorIndex = 0; break; // White
-          case 'L': colorIndex = 1; break; // Yellow
-          case 'U': colorIndex = 2; break; // Red
-          case 'D': colorIndex = 3; break; // Orange
-          case 'F': colorIndex = 4; break; // Blue
-          case 'B': colorIndex = 5; break; // Green
-        }
+        if (layer.length === 0) continue;
         
-        // Convert face position to world direction vector
-        const faceNormal = new THREE.Vector3();
-        switch (face) {
-          case 'R': faceNormal.set(1, 0, 0); break;
-          case 'L': faceNormal.set(-1, 0, 0); break;
-          case 'U': faceNormal.set(0, 1, 0); break;
-          case 'D': faceNormal.set(0, -1, 0); break;
-          case 'F': faceNormal.set(0, 0, 1); break;
-          case 'B': faceNormal.set(0, 0, -1); break;
-        }
-        
-        // Check if all cubelets on this face have the same color facing outward
-        const raycaster = new THREE.Raycaster();
-        let centerColor = null;
+        let referenceColor = null;
         
         for (const cubelet of layer) {
-          // Get the center position of the cubelet
-          const position = cubelet.position.clone();
-          
-          // Cast ray from slightly inside the cube outward in face normal direction
-          const startPoint = position.clone().sub(faceNormal.clone().multiplyScalar(0.5));
-          raycaster.set(startPoint, faceNormal);
+          const raycaster = new THREE.Raycaster();
+          const origin = cubelet.position.clone().sub(direction.clone().multiplyScalar(0.1));
+          raycaster.set(origin, direction);
           
           const intersects = raycaster.intersectObject(cubelet);
           if (intersects.length > 0) {
             const faceIndex = intersects[0].faceIndex;
-            // Integer division by 2 because each face has 2 triangles
             const materialIndex = Math.floor(faceIndex / 2);
-            
             const color = cubelet.material[materialIndex].color.getHex();
             
-            if (centerColor === null) {
-              centerColor = color;
-            } else if (color !== centerColor) {
-              // Face has different colors
+            if (referenceColor === null) {
+              referenceColor = color;
+            } else if (color !== referenceColor) {
               return false;
             }
           }
         }
       }
       
-      // If we've checked all faces and they're all uniform in color
       return true;
     }
 
-    // Modified scramble function - no automatic timer start
+    // Enhanced scramble function
     function scramble() {
-      // Reset game state first
       resetGame();
       
       const moves = ['U', 'D', 'L', 'R', 'F', 'B'];
-      const moveCount = 20;
+      const moveCount = 25;
       let movesMade = 0;
-      isRotating = true; // Prevent other interactions during scramble
+      isRotating = true;
 
-      // Function to make a single move
+      document.getElementById('btnScramble').classList.add('loading');
+
       function makeMove() {
         if (movesMade < moveCount) {
           const move = moves[Math.floor(Math.random() * moves.length)];
           
-          // Use direct rotation logic without the isPaused check
           const layer = getFaceLayer(move);
           const axis = faceAxis[move];
           const direction = faceDirection[move];
@@ -354,7 +606,6 @@
           const group = new THREE.Group();
           scene.add(group);
           
-          // Create a quaternion for the rotation
           const quaternion = new THREE.Quaternion();
           const rotationAxis = new THREE.Vector3();
           
@@ -364,7 +615,6 @@
           
           quaternion.setFromAxisAngle(rotationAxis, angle);
 
-          // Transfer cubelets to rotation group
           layer.forEach(cubelet => {
             const worldPos = new THREE.Vector3();
             cubelet.getWorldPosition(worldPos);
@@ -381,7 +631,7 @@
             group.attach(cubelet);
           });
 
-          const duration = 100; // Faster for scrambling
+          const duration = 80;
           const start = Date.now();
 
           function animateScrambleRotation() {
@@ -395,7 +645,6 @@
             if (progress < 1) {
               requestAnimationFrame(animateScrambleRotation);
             } else {
-              // Rotation complete, reattach cubelets to main cube
               while (group.children.length) {
                 const cubelet = group.children[0];
                 
@@ -421,78 +670,73 @@
               scene.remove(group);
               movesMade++;
               
-              // Wait before making the next move
-              setTimeout(makeMove, 50);
+              setTimeout(makeMove, 30);
             }
           }
 
           animateScrambleRotation();
         } else {
-          // Scrambling complete - do NOT automatically start timer
-          isRotating = false; // Re-enable interactions
+          isRotating = false;
+          document.getElementById('btnScramble').classList.remove('loading');
         }
       }
 
-      // Start making moves
       makeMove();
     }
 
     function solve() {
-      // Stop timer if running
       stopTimer();
       resetGame();
-      isRotating = true; // Prevent interactions during solve animation
+      isRotating = true;
 
-      // Remove all current cubelets from the scene
-      while (cubeGroup.children.length > 0) {
-        const cubelet = cubeGroup.children[0];
-        cubeGroup.remove(cubelet);
-        scene.remove(cubelet);
-      }
-
-      // Create new cubelets in solved positions
-      cubeGroup.clear();
-      cubelets.length = 0;
-
-      for (let x = -1; x <= 1; x++) {
-        for (let y = -1; y <= 1; y++) {
-          for (let z = -1; z <= 1; z++) {
-            if (x === 0 && y === 0 && z === 0) continue;
-            const cubelet = createCubelet(x, y, z);
-            cubeGroup.add(cubelet);
-            cubelets.push(cubelet);
+      // Animate solve
+      const solveAnimation = () => {
+        cubeGroup.rotation.x += 0.02;
+        cubeGroup.rotation.y += 0.02;
+        
+        setTimeout(() => {
+          // Reset to solved state
+          while (cubeGroup.children.length > 0) {
+            const cubelet = cubeGroup.children[0];
+            cubeGroup.remove(cubelet);
+            scene.remove(cubelet);
           }
-        }
-      }
 
-      setTimeout(() => {
-        isRotating = false; // Re-enable interactions
-      }, 500);
+          cubeGroup.rotation.set(0, 0, 0);
+          cubelets.length = 0;
+
+          for (let x = -1; x <= 1; x++) {
+            for (let y = -1; y <= 1; y++) {
+              for (let z = -1; z <= 1; z++) {
+                if (x === 0 && y === 0 && z === 0) continue;
+                const cubelet = createCubelet(x, y, z);
+                cubeGroup.add(cubelet);
+                cubelets.push(cubelet);
+              }
+            }
+          }
+
+          isRotating = false;
+        }, 1000);
+      };
+
+      solveAnimation();
     }
 
-    let startTime = null;
-    let timerInterval = null;
-    let elapsedTime = 0;
-
+    // Timer functions
     function startTimer() {
-      if (timerInterval) return; // Don't start if already running
+      if (timerInterval) return;
       
       startTime = Date.now() - elapsedTime;
       timerInterval = setInterval(() => {
         elapsedTime = Date.now() - startTime;
         document.getElementById('timer').textContent = `${(elapsedTime / 1000).toFixed(2)}s`;
-        
-        // Check for win condition during timer update
-        if (checkWinCondition() && gameStarted) {
-          pauseTimer(); // Pause rather than stop to show final time
-        }
-      }, 100);
+      }, 10);
     }
 
     function pauseTimer() {
       clearInterval(timerInterval);
       timerInterval = null;
-      // Don't reset elapsed time, we'll continue from here
     }
 
     function stopTimer() {
@@ -502,26 +746,22 @@
       document.getElementById('timer').textContent = "0.00s";
     }
 
-    // Modified resetGame function
+    // Game state management
     function resetGame() {
-      // Reset game state
       setGameState(false);
       isPaused = false;
       stopTimer();
-      
-      // Enable cube rotation controls
+      moveCount = 0;
+      updateMoveCounter();
       controls.enabled = true;
       
-      // Re-enable rotation buttons
       const faceButtons = document.querySelectorAll('.face-btn');
       faceButtons.forEach(btn => btn.disabled = false);
     }
 
-    // Modified setGameState function
     function setGameState(started) {
       gameStarted = started;
       
-      // Toggle pause button visibility based on game state
       const pauseBtn = document.getElementById('btnPause');
       
       if (started) {
@@ -542,29 +782,60 @@
       if (isPaused) {
         pauseBtn.textContent = "▶️ Resume";
         pauseTimer();
-        
-        // Disable controls while paused
         controls.enabled = false;
         
-        // Disable rotation buttons
         const faceButtons = document.querySelectorAll('.face-btn');
         faceButtons.forEach(btn => btn.disabled = true);
         
       } else {
         pauseBtn.textContent = "⏸️ Pause";
         startTimer();
-        
-        // Re-enable controls
         controls.enabled = true;
         
-        // Re-enable rotation buttons
         const faceButtons = document.querySelectorAll('.face-btn');
         faceButtons.forEach(btn => btn.disabled = false);
-        
       }
     }
 
-    // Instructions toggle functionality
+    function updateMoveCounter() {
+      const counter = document.getElementById('moveCount');
+      counter.textContent = moveCount;
+      counter.classList.add('move-animation');
+      setTimeout(() => counter.classList.remove('move-animation'), 300);
+    }
+
+    function handleWin() {
+      pauseTimer();
+      gamesWon++;
+      
+      // Update best time
+      if (!bestTime || elapsedTime < parseFloat(bestTime)) {
+        bestTime = elapsedTime.toString();
+        localStorage.setItem('rubiksBestTime', bestTime);
+        document.getElementById('bestTime').textContent = `${(elapsedTime / 1000).toFixed(2)}s`;
+      }
+      
+      // Update games won
+      localStorage.setItem('rubiksGamesWon', gamesWon.toString());
+      document.getElementById('gamesWon').textContent = gamesWon;
+      
+      // Show win message
+      const winMessage = document.getElementById('winMessage');
+      const winStats = document.getElementById('winStats');
+      winStats.innerHTML = `
+        Time: ${(elapsedTime / 1000).toFixed(2)}s<br>
+        Moves: ${moveCount}<br>
+        ${!bestTime || elapsedTime <= parseFloat(bestTime) ? '🏆 New Best Time!' : ''}
+      `;
+      
+      winMessage.classList.add('show');
+      
+      setTimeout(() => {
+        winMessage.classList.remove('show');
+      }, 4000);
+    }
+
+    // Instructions toggle
     const toggleButton = document.getElementById('toggleInstructions');
     const instructions = document.getElementById('instructions');
     
@@ -578,13 +849,7 @@
       }
     });
 
-    window.addEventListener('resize', () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    });
-
-    // Button event listeners
+    // Event listeners
     document.getElementById('btnU').addEventListener('click', () => rotateFace('U'));
     document.getElementById('btnD').addEventListener('click', () => rotateFace('D'));
     document.getElementById('btnL').addEventListener('click', () => rotateFace('L'));
@@ -593,9 +858,10 @@
     document.getElementById('btnB').addEventListener('click', () => rotateFace('B'));
     document.getElementById('btnScramble').addEventListener('click', scramble);
     document.getElementById('btnSolve').addEventListener('click', solve);
+    document.getElementById('btnReset').addEventListener('click', resetGame);
     document.getElementById('btnPause').addEventListener('click', togglePause);
 
-    // Add keyboard controls
+    // Enhanced keyboard controls
     window.addEventListener('keydown', (event) => {
       if (isPaused || isRotating) return;
       
@@ -606,13 +872,26 @@
         case 'R': rotateFace('R'); break;
         case 'F': rotateFace('F'); break;
         case 'B': rotateFace('B'); break;
-        case ' ': togglePause(); break; // Space bar to pause/resume
+        case ' ': 
+          event.preventDefault();
+          togglePause(); 
+          break;
+        case 'S': scramble(); break;
+        case 'ENTER': solve(); break;
       }
     });
 
-    // Initialize the game with a scrambled cube
+    // Window resize
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    // Initialize with scrambled cube
     setTimeout(scramble, 1000);
 
+    // Animation loop
     function animate() {
       requestAnimationFrame(animate);
       controls.update();
