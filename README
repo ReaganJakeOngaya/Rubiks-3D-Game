@@ -185,6 +185,7 @@ Start → Scramble → Play → [Pause/Resume] → Solve → Win Celebration →
 - Customization: Cube color schemes and sizes
 - Multiplayer: Competitive solving with friends
 - Achievements: Unlockable milestones and challenges
+- Mobile control layout
 
 ### Technical Improvements
 - Web Workers: Offload solving algorithms
@@ -192,8 +193,8 @@ Start → Scramble → Play → [Pause/Resume] → Solve → Win Celebration →
 - WebXR: Virtual reality support
 - Performance Monitoring: Advanced analytics and optimization
 
-# License & Attribution
 
+# License & Attribution
 ### Technologies Used
 - Three.js: 3D graphics library ([MIT License](https://github.com/mrdoob/three.js/))
 - Custom OrbitControls: Implementation based on Three.js examples

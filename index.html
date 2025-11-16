@@ -31,7 +31,7 @@
         <button id="btnScramble"><i class="fas fa-random"></i> Scramble</button>
         <button id="btnSolve"><i class="fas fa-check"></i> Solve</button>
         <button id="btnReset"><i class="fas fa-redo"></i> Reset</button>
-        <button id="btnPause" class="hidden"><i class="fas fa-pause"></i> Pause</button>
+        <button id="btnPause" class="hidden"><i class="fa-solid fa-pause"></i> Pause</button>
       </div>
     </div>
     
@@ -150,7 +150,7 @@
       }
     });    
 
-    // OrbitControls implementation (since CDN imports don't work reliably)
+    // OrbitControls implementation 
     class OrbitControls {
       constructor(object, domElement) {
         this.object = object;
@@ -799,7 +799,7 @@
       
       if (started) {
         pauseBtn.classList.remove('hidden');
-        pauseBtn.textContent = "⏸️ Pause";
+        pauseBtn.innerHTML = '<i class="fa-solid fa-pause"></i> Pause';
         isPaused = false;
       } else {
         pauseBtn.classList.add('hidden');
@@ -813,7 +813,7 @@
       const pauseBtn = document.getElementById('btnPause');
       
       if (isPaused) {
-        pauseBtn.textContent = "▶️ Resume";
+        pauseBtn.innerHTML='<i class="fa-solid fa-circle-play"></i> Resume';
         pauseTimer();
         controls.enabled = false;
         
@@ -821,7 +821,7 @@
         faceButtons.forEach(btn => btn.disabled = true);
         
       } else {
-        pauseBtn.textContent = "⏸️ Pause";
+        pauseBtn.innerHTML = '<i class="fa-solid fa-pause"></i> Pause';
         startTimer();
         controls.enabled = true;
         
@@ -858,7 +858,7 @@
       winStats.innerHTML = `
         Time: ${(elapsedTime / 1000).toFixed(2)}s<br>
         Moves: ${moveCount}<br>
-        ${!bestTime || elapsedTime <= parseFloat(bestTime) ? '🏆 New Best Time!' : ''}
+        ${!bestTime || elapsedTime <= parseFloat(bestTime) ? '<i class="fa-solid fa-stopwatch-20"></i> New Best Time!' : ''}
       `;
       
       winMessage.classList.add('show');
